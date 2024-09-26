@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PetCareConnect.App</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PetCareConnect.App.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="~/img/FaviconPetCare.png">
+</head>
+<body>
+    <header>
+
+         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <img class="logo" src="~/img/PetCare_logo.png" /> </a>
+                
+                <form class="d-flex mx-auto w-50" >
+                    <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
+                </form>
+
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <img class="carrinho" src="~/img/Carrinho.png" /> </a>
+                
+                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <img class="conta" src="~/img/Conta.png" /> </a> 
+
+            </div>
+        </nav> 
+        <div class="container d-flex justify-content-center">
+            <button type="button" class="btn-categorias fw-bold ms-3">Lojas</button>
+            <button type="button" class="btn-categorias fw-bold ms-3">Produtos</button>
+            <button type="button" class="btn-categorias fw-bold ms-3">Serviços</button>
+        </div>
+
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+</body>
+</html>
