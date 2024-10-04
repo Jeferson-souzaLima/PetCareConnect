@@ -1,23 +1,42 @@
-﻿namespace PetCareConnect.Business.Models
+﻿using PetCareConnect.Business.Enums;
+
+namespace PetCareConnect.Business.Models
 {
-    public class Cliente
+    public class Cliente : BaseEntity
     {
-        public int ClienteId { get; set; }
         public string Nome { get; set; }
-        public int Documento { get; set; } //CPF ou CNPJ
-        public Endereco Endereco { get; set; }
-        public IEnumerable<Pedidos> Pedidos { get; set; }
-        public IEnumerable<GrupoPedidos> GrupoPedidos { get; set; }
-        public string Imagem { get; set; } //Foto de Perfil
-        public IEnumerable<Pets> Pets { get; set; } //Meus Pets
+        public string Documento { get; set; }
+        public string Imagem { get; set; }
+        
+        /* EF Relational */ 
+        public EnderecoCliente EnderecoCliente { get; set; }
+
+        //public IEnumerable<Pedido> Pedido { get; set; }
+        //public IEnumerable<GrupoPedido> GrupoPedido { get; set; }
+        public IEnumerable<Pet> Pet { get; set; }
     }
 
-    public class Pets
+    public class Pet : BaseEntity
     {
-        public int PetId { get; set; }
-        public Cliente Cliente { get; set; }
         public string Nome { get; set; }
-        public int Idade { get; set; }
+        public string Raca { get; set; }
+        public Porte Porte { get; set; }
         public string Imagem { get; set; }
+
+        //EF Relational
+        public Cliente Cliente { set; get; }
+        //public Cliente ClienteId { set; get; }
+    }
+    public class EnderecoCliente : BaseEntity
+    {
+        public string Cep { get; set; }
+        public string Estado { get; set; }
+        public string Cidade { get; set; }
+        public string Bairro { get; set; }
+        public string Logradouro { get; set; }
+
+        /* EF Relational */
+        //public Cliente Cliente { get; set; }
+        public Guid ClienteId { get; set; }
     }
 }

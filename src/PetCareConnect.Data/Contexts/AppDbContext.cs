@@ -3,18 +3,21 @@ using PetCareConnect.Business.Models;
 
 namespace PetCareConnect.Data.Contexts
 {
-    public class DataDbContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public DataDbContext(DbContextOptions options) : base(options) { }
+        public AppDbContext(DbContextOptions options) : base(options) { }
+        public DbSet<BaseEntity> BaseEntity { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
-        public DbSet<Endereco> Endereco { get; set; }
-        public DbSet<GrupoPedidos> GrupoPedidos { get; set; }
-        public DbSet<Pedidos> Pedidos { get; set; }
-        public DbSet<Prestador> Prestador { get; set; }
-        public DbSet<Produtos> Produtos { get; set; }
-        public DbSet<Servicos> Servicos { get; set; }
-        public DbSet<CategoriaProdutos> CategoriaProdutos { get; set; }
-        public DbSet<Pets> Pets { get; set; }
+        public DbSet<Pet> Pet { get; set; }
+        public DbSet<EnderecoVendedor> EnderecoVendedor { get; set; }
+        public DbSet<EnderecoFreelancer> EnderecoFreelancer { get; set; }
+        public DbSet<EnderecoCliente> EnderecoCliente { get; set; }
+        public DbSet<Freelancer> Freelancer { get; set; }
+        public DbSet<Vendedor> Vendedor { get; set; }
+        public DbSet<Produto> Produto { get; set; }
+        public DbSet<CategoriaProduto> CategoriaProduto { get; set; }
+        public DbSet<Servico> Servico { get; set; }
+        
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,7 +27,7 @@ namespace PetCareConnect.Data.Contexts
                 property.SetColumnType("varchar(100)");
 
             //Informar qual será o contexto utilizado
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
             //Configurar para que não haja exclusão em cascata no banco de dados
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
