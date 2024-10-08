@@ -1,4 +1,4 @@
-namespace PetCareConnect.App.Models
+namespace PetCareConnect.App.ViewModels
 {
     public class ErrorViewModel
     {

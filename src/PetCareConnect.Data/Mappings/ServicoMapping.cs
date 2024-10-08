@@ -16,15 +16,18 @@ namespace PetCareConnect.Data.Mappings
 
             builder.Property(s => s.Nome)
                 .IsRequired()
-                .HasColumnName("varchar(100)");
+                .HasColumnType("varchar(100)");
 
             builder.Property(s => s.Descricao)
                 .IsRequired()
-                .HasColumnName("varchar(1000)");
+                .HasColumnType("varchar(1000)");
 
             builder.Property(s => s.Valor)
                 .IsRequired()
-                .HasColumnName("varchar(30)");
+                .HasColumnType("decimal(18,2)");
+
+            builder.ToTable("TB_SERVICO");
+
         }
     }
 }

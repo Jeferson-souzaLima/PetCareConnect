@@ -12,6 +12,7 @@ namespace PetCareConnect.Business.Models
         public string Descricao { get; set; }
         public string Imagem { get; set; }
         public decimal Valor { get; set; }
+        //public string Categoria { get; set; }
     }
 
     public class CategoriaProduto : BaseEntity

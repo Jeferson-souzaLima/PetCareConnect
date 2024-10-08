@@ -2,27 +2,15 @@
 
 namespace PetCareConnect.Business.Models
 {
-    public class Freelancer : BaseEntity
+    public class Freelancer : Prestador
     {
-        public string Nome { get; set; }
-        public string Documento { get; set; }
-        public string Imagem { get; set; }
-        public TipoPrestador TipoPrestador { get; set; }
+        public Freelancer(string nome, string documento, string imagem, EnderecoPrestador enderecoPrestador) : base(nome, documento, imagem, TipoPrestador.Freelancer, enderecoPrestador)
+        {
 
-        /* EF Relational */
-        public EnderecoFreelancer EnderecoFreelancer { get; set; }
-    }
+        }
+        protected Freelancer()
+        {
 
-    public class EnderecoFreelancer : BaseEntity
-    {
-        public string Cep { get; set; }
-        public string Estado { get; set; }
-        public string Cidade { get; set; }
-        public string Bairro { get; set; }
-        public string Logradouro { get; set; }
-
-        /* EF Relational */
-        public Freelancer Freelancer { get; set; }
-        public Guid FreelancerId { get; set; }
+        }
     }
 }

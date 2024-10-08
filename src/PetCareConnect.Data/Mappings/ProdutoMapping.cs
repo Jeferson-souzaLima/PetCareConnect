@@ -11,19 +11,21 @@ namespace PetCareConnect.Data.Mappings
 
             builder.Property(p => p.Nome)
                 .IsRequired()
-                .HasColumnName("varchar(200)");
+                .HasColumnType("varchar(200)");
 
             builder.Property(p => p.Descricao)
                 .IsRequired()
-                .HasColumnName("varchar(1000)");
+                .HasColumnType("varchar(1000)");
 
             builder.Property(p => p.Imagem)
                 .IsRequired()
-                .HasColumnName("varchar(100)");
+                .HasColumnType("varchar(100)");
 
             builder.Property(p => p.Valor)
                 .IsRequired()
-                .HasColumnName("varchar(100)");
+                .HasColumnType("decimal(18,2)");
+
+            builder.ToTable("TB_PRODUTO");
         }
     }
 
@@ -34,7 +36,10 @@ namespace PetCareConnect.Data.Mappings
 
             builder.Property(c => c.Nome)
                 .IsRequired()
-                .HasColumnName("varchar(100)");
+                .HasColumnType("varchar(100)");
+
+            builder.ToTable("TB_CATEGORIAPRODUTO");
+
         }
     }
 }
