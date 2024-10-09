@@ -12,14 +12,14 @@ namespace PetCareConnect.Business.Models
         //public IEnumerable<GrupoPedido> GrupoPedido { get; set; }
         public IEnumerable<Pet> Pets { get; set; }
         public EnderecoComprador Endereco { get; set; }
-        public Comprador(string nome, string documento, string imagem) : base(nome, documento, imagem)
-        {
+        //public Comprador(string nome, string documento, string imagem) : base(nome, documento, imagem)
+        //{
             
-        }
-        protected Comprador()
-        {
+        //}
+        //protected Comprador()
+        //{
 
-        }
+        //}
     }
 
     public class Pet : BaseEntity

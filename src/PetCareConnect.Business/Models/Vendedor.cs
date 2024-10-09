@@ -7,14 +7,14 @@ namespace PetCareConnect.Business.Models
 {
     public class Vendedor : Prestador
     {
-        public Vendedor(string nome, string documento, string imagem, EnderecoPrestador enderecoPrestador) : base(nome, documento, imagem, TipoPrestador.Vendedor, enderecoPrestador)
-        {
+        //public Vendedor(string nome, string documento, string imagem, EnderecoPrestador enderecoPrestador) : base(nome, documento, imagem, TipoPrestador.Vendedor, enderecoPrestador)
+        //{
             
-        }
-        protected Vendedor()
-        {
+        //}
+        //protected Vendedor()
+        //{
 
-        }
+        //}
     }
 
 }

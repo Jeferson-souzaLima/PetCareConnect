@@ -10,16 +10,16 @@ namespace PetCareConnect.Business.Models
         //public Endereco Endereco { get; set; }
         //public TipoCliente TipoCliente { get; set; }
 
-        protected Cliente(string nome, string documento, string imagem)
-        {
-            Nome = nome;
-            Documento = documento;
-            Imagem = imagem;
-        }
-        protected Cliente()
-        {
+        //protected Cliente(string nome, string documento, string imagem)
+        //{
+        //    Nome = nome;
+        //    Documento = documento;
+        //    Imagem = imagem;
+        //}
+        //protected Cliente()
+        //{
 
-        }
+        //}
 
     }
 

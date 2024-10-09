@@ -9,13 +9,13 @@ namespace PetCareConnect.Business.Models
 {
     public class PetShop : Prestador
     {
-        public PetShop(string nome, string documento, string imagem, EnderecoPrestador enderecoPrestador) : base(nome, documento, imagem, TipoPrestador.PetShop, enderecoPrestador)
-        {
+        //public PetShop(string nome, string documento, string imagem, EnderecoPrestador enderecoPrestador) : base(nome, documento, imagem, TipoPrestador.PetShop, enderecoPrestador)
+        //{
 
-        }
-        protected PetShop()
-        {
+        //}
+        //protected PetShop()
+        //{
 
-        }
+        //}
     }
 }

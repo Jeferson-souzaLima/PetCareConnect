@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,13 @@ namespace PetCareConnect.Business.Models
         public string Imagem { get; set; }
         public decimal Valor { get; set; }
         //public string Categoria { get; set; }
+
+        public Produto(string nome, string descricao, string imagem, decimal valor) 
+        { }
+
+        public Produto()
+        {
+        }
     }
 
     public class CategoriaProduto : BaseEntity
