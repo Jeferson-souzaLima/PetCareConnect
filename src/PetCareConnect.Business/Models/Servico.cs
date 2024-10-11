@@ -13,15 +13,15 @@ namespace PetCareConnect.Business.Models
         public string Descricao { get; set; }
         public decimal Valor { get; set; }
 
-        public Servico(string nome, string descricao, decimal valor) 
-        {
-            Nome = nome;
-            Descricao = descricao;
-            Valor = valor;
-        }
+        //public Servico(string nome, string descricao, decimal valor) 
+        //{
+        //    Nome = nome;
+        //    Descricao = descricao;
+        //    Valor = valor;
+        //}
 
-        public Servico()
-        {
-        }
+        //public Servico()
+        //{
+        //}
     }
 }

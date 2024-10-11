@@ -50,7 +50,7 @@
 
         <a asp-area="" asp-controller="Produto" asp-action="Index" class="btn btn-categorias fw-bold ms-3">Produtos</a>
 
-        <a asp-area="" asp-controller="Produto" asp-action="Index" class="btn btn-categorias fw-bold ms-3">Serviços</a>
+        <a asp-area="" asp-controller="Servico" asp-action="Index" class="btn btn-categorias fw-bold ms-3">Serviços</a>
 
     </div>
 
@@ -60,6 +60,11 @@
             @RenderBody()
         </main>
     </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/site.js" asp-append-version="true" ></script>
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 </html>

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PetCareConnect.App.Data;
 using PetCareConnect.Business.Interfaces;
 using PetCareConnect.Business.Models;
+using PetCareConnect.Data.Repositories;
 
 namespace PetCareConnect.App.Controllers
 {
@@ -26,7 +27,6 @@ namespace PetCareConnect.App.Controllers
             Mapper = mapper;
         }
 
-        // GET: Produto
         public async Task<IActionResult> IndexAsync()
         {
             var produtos = await ProdutoRepository.ObterTodos();
@@ -34,33 +34,21 @@ namespace PetCareConnect.App.Controllers
             return View(produtosViewModel);
         }
 
-        // GET: Produto/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        
+        public async Task<IActionResult> Details(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var produtoViewModel = await _context.ProdutoViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (produtoViewModel == null)
-            {
-                return NotFound();
-            }
+            var produtoViewModel = Mapper.Map<ProdutoViewModel>(await ProdutoRepository.ObterPorId(id));
 
             return View(produtoViewModel);
         }
 
-        // GET: Produto/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Produto/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Nome,Descricao,Imagem,Valor,Id")] ProdutoViewModel produtoViewModel)
@@ -75,58 +63,56 @@ namespace PetCareConnect.App.Controllers
             return View(produtoViewModel);
         }
 
-        // GET: Produto/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var produtoViewModel = await _context.ProdutoViewModel.FindAsync(id);
+            var produtoViewModel = await ProdutoRepository.ObterPorId(id);
+
             if (produtoViewModel == null)
             {
                 return NotFound();
             }
+
             return View(produtoViewModel);
         }
 
-        // POST: Produto/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Nome,Descricao,Imagem,Valor,Id")] ProdutoViewModel produtoViewModel)
+        public async Task<IActionResult> Edit(Guid id, ProdutoViewModel produtoViewModel)
         {
             if (id != produtoViewModel.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(produtoViewModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProdutoViewModelExists(produtoViewModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(IndexAsync));
-            }
-            return View(produtoViewModel);
+            if (!ModelState.IsValid) return View(produtoViewModel);
+            //{
+            //    try
+            //    {
+            //        _context.Update(produtoViewModel);
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!ProdutoViewModelExists(produtoViewModel.Id))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(IndexAsync));
+            //}
+            return RedirectToAction("Index");
         }
 
-        // GET: Produto/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -144,7 +130,6 @@ namespace PetCareConnect.App.Controllers
             return View(produtoViewModel);
         }
 
-        // POST: Produto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
