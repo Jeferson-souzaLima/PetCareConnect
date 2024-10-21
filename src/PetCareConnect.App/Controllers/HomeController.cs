@@ -38,8 +38,6 @@ namespace PetCareConnect.App.Controllers
             //var servico = new Servico() { Nome = "Tosa", Descricao = "Aparo de pelos no pet.", Valor = 485, Id = Guid.NewGuid(), };
             //appdbcontext.Add(servico);
             //appdbcontext.SaveChanges();
-
-
             return View();
         }
 

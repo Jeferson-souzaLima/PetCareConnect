@@ -9,5 +9,6 @@ namespace PetCareConnect.Business.Interfaces
 {
     public interface IProdutoRepository : IBaseRepository<Produto>
     {
+        Task Adicionar(Produto produto);
     }
 }

@@ -1,6 +1,7 @@
-﻿using PetCareConnect.Business.Enums;
-using System.ComponentModel.DataAnnotations;
-using static System.Net.Mime.MediaTypeNames;
+﻿
+
+using PetCareConnect.App.ViewModels;
+using PetCareConnect.Business.Enums;
 
 namespace PetCareConnect.Business.Models
 {
@@ -17,6 +18,7 @@ namespace PetCareConnect.Business.Models
 
     public class PetViewModel : BaseEntity
     {
+        public Guid Id { get; set; }
         public string Nome { get; set; }
         public string Raca { get; set; }
         public Porte Porte { get; set; }
@@ -28,6 +30,7 @@ namespace PetCareConnect.Business.Models
 
     public class EnderecoCompradorViewModel : EnderecoViewModel
     {
+        public Guid Id { get; set; }
         public CompradorViewModel Comprador { get; set; }
     }
 }

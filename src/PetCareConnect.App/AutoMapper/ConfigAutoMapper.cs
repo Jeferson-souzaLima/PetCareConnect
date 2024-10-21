@@ -9,10 +9,15 @@ namespace PetCareConnect.App.AutoMapper
         public ConfigAutoMapper() 
         {
             CreateMap<Cliente, ClienteViewModel>().ReverseMap();
+
             CreateMap<Comprador, CompradorViewModel>().ReverseMap();
+
             CreateMap<Endereco, EnderecoViewModel>().ReverseMap();
+
             CreateMap<EnderecoComprador, EnderecoCompradorViewModel>().ReverseMap();
+
             CreateMap<EnderecoPrestador, EnderecoPrestadorViewModel>().ReverseMap();
+
             CreateMap<Freelancer, FreelancerViewModel>().ReverseMap();
 
             CreateMap<Prestador, PrestadorViewModel>().ReverseMap();
@@ -22,9 +27,11 @@ namespace PetCareConnect.App.AutoMapper
             CreateMap<Produto, ProdutoViewModel>().ReverseMap();
 
             CreateMap<Vendedor, VendedorViewModel>().ReverseMap();
+
             CreateMap<Pet, PetViewModel>().ReverseMap();
+
             CreateMap<CategoriaProduto, CategoriaProdutoViewModel>().ReverseMap();
-            
+
         }   
     }
 }

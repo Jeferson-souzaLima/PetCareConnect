@@ -15,12 +15,12 @@ namespace PetCareConnect.Business.Models
         public decimal Valor { get; set; }
         //public string Categoria { get; set; }
 
-        public Produto(string nome, string descricao, string imagem, decimal valor) 
-        { }
+        //public Produto(string nome, string descricao, string imagem, decimal valor) 
+        //{ }
 
-        public Produto()
-        {
-        }
+        //public Produto()
+        //{
+        //}
     }
 
     public class CategoriaProduto : BaseEntity

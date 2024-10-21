@@ -1,35 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PetCareConnect.App.Data;
+using PetCareConnect.App.ViewModels;
 using PetCareConnect.Business.Interfaces;
-using PetCareConnect.Business.Models;
-using PetCareConnect.Data.Repositories;
+using PetCareConnect.Business.Services;
+
 
 namespace PetCareConnect.App.Controllers
 {
     public class ProdutoController : Controller
     {
-        public IProdutoRepository ProdutoRepository { get; }
         public IMapper Mapper { get; }
 
-        private readonly ApplicationDbContext _context;
+        private readonly ProdutoService _produtoService;
+        private readonly IProdutoRepository _produtoRepository;
 
-        public ProdutoController(ApplicationDbContext context, IProdutoRepository produtoRepository, IMapper mapper)
+        public ProdutoController(ProdutoService  produtoService, IProdutoRepository produtoRepository, IMapper mapper)
         {
-            _context = context;
-            ProdutoRepository = produtoRepository;
+            _produtoService = produtoService;
+            _produtoRepository = produtoRepository;
             Mapper = mapper;
         }
 
         public async Task<IActionResult> IndexAsync()
         {
-            var produtos = await ProdutoRepository.ObterTodos();
+            var produtos = await _produtoRepository.ObterTodos();
             var produtosViewModel = Mapper.Map<IEnumerable<ProdutoViewModel>>(produtos);
             return View(produtosViewModel);
         }
@@ -37,31 +33,50 @@ namespace PetCareConnect.App.Controllers
         
         public async Task<IActionResult> Details(Guid id)
         {
-            var produtoViewModel = Mapper.Map<ProdutoViewModel>(await ProdutoRepository.ObterPorId(id));
+            var produtoViewModel = Mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterPorId(id));
 
             return View(produtoViewModel);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        // POST: Produtos/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
+        //{
+        //    if (ModelState.IsValid) return View(produtoViewModel);
+        //    await ProdutoRepository.Adicionar(Mapper.Map<ProdutoViewModel>(produtoViewModel));
+
+        //    //addnotificador e msg tempdata
+        //    return RedirectToAction(nameof(Index));
+
+        //}
+
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome,Descricao,Imagem,Valor,Id")] ProdutoViewModel produtoViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                produtoViewModel.Id = Guid.NewGuid();
-                _context.Add(produtoViewModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(IndexAsync));
-            }
-            return View(produtoViewModel);
-        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Nome,Descricao,Imagem,Valor,Id")] ProdutoViewModel produtoViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        produtoViewModel.Id = Guid.NewGuid();
+        //        _context.Add(produtoViewModel);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(IndexAsync));
+        //    }
+        //    return View(produtoViewModel);
+        //}
 
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -70,7 +85,7 @@ namespace PetCareConnect.App.Controllers
             //    return NotFound();
             //}
 
-            var produtoViewModel = await ProdutoRepository.ObterPorId(id);
+            var produtoViewModel = await _produtoRepository.ObterPorId(id);
 
             if (produtoViewModel == null)
             {
@@ -144,7 +159,7 @@ namespace PetCareConnect.App.Controllers
             return RedirectToAction(nameof(IndexAsync));
         }
 
-        private bool ProdutoViewModelExists(Guid id)
+        private bool ObterProdutoViewModel(Guid id)
         {
             return _context.ProdutoViewModel.Any(e => e.Id == id);
         }

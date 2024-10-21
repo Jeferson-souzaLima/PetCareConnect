@@ -47,32 +47,8 @@ namespace PetCareConnect.Data.Mappings
 
             builder.ToTable("TB_PRESTADOR");
 
-            //.Property("Discriminator")
-            //    .HasMaxLength(200);
-
         }
     }
 
-    //public class VendedorMapping : IEntityTypeConfiguration<Vendedor>
-    //{
-    //    public void Configure(EntityTypeBuilder<Vendedor> builder)
-    //    {
-    //        builder.ToTable("TB_VENDEDOR");
-    //    }
-    //}
-    //public class PetShopMapping : IEntityTypeConfiguration<PetShop>
-    //{
-    //    public void Configure(EntityTypeBuilder<PetShop> builder)
-    //    {
-    //        builder.ToTable("TB_PETSHOP");
-    //    }
-    //}
-    //public class FreelancerMapping : IEntityTypeConfiguration<Freelancer>
-    //{
-    //    public void Configure(EntityTypeBuilder<Freelancer> builder)
-    //    {
-    //        builder.ToTable("TB_FREELANCER");
-    //    }
-    //}
 }
 

@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PetCareConnect.Business.Models
+﻿
+namespace PetCareConnect.App.ViewModels
 {
-    public abstract class EnderecoViewModel : BaseEntity
+    public abstract class EnderecoViewModel 
     {
+        public Guid Id { get; set; }
         public string Cep { get; set; }
         public string Estado { get; set; }
         public string Cidade { get; set; }

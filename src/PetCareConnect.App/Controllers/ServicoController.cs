@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PetCareConnect.App.Data;
+using PetCareConnect.App.ViewModels;
 using PetCareConnect.Business.Interfaces;
 using PetCareConnect.Business.Models;
 using PetCareConnect.Data.Repositories;
@@ -96,9 +97,9 @@ namespace PetCareConnect.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Nome,Descricao,Valor,Id")] ServicoViewModel servicoViewModel)
+        public IActionResult Edit(Guid id, [Bind("Nome,Descricao,Valor,Id")] ServicoViewModel servicoViewModel)
         {
-            
+
             return View(servicoViewModel);
         }
 

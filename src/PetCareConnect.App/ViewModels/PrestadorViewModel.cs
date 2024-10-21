@@ -1,22 +1,18 @@
-﻿using PetCareConnect.App.ViewModels;
+﻿
 using PetCareConnect.Business.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PetCareConnect.Business.Models
+namespace PetCareConnect.App.ViewModels
 {
     public abstract class PrestadorViewModel : ClienteViewModel
     {
+        public Guid Id { get; set; }
         public TipoPrestador TipoPrestador { get; set; }
         public EnderecoPrestadorViewModel Endereco { get; set; }
     }
 
     public class EnderecoPrestadorViewModel : EnderecoViewModel
     {
+        public Guid Id { get; set; }
         public PrestadorViewModel Prestador { get; set; }
 
     }

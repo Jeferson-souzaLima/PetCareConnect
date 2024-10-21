@@ -1,13 +1,10 @@
-﻿using PetCareConnect.Business.Enums;
-using System.Runtime.Intrinsics.X86;
-using static System.Net.Mime.MediaTypeNames;
+﻿
 
-
-namespace PetCareConnect.Business.Models
+namespace PetCareConnect.App.ViewModels
 {
     public class VendedorViewModel : PrestadorViewModel
     {
-            
+        public Guid Id { get; set; }
     }
 
 }
