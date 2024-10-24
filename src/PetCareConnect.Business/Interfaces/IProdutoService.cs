@@ -2,7 +2,7 @@
 
 namespace PetCareConnect.Business.Interfaces
 {
-    interface IProdutoService : IDisposable
+    public interface IProdutoService : IDisposable
     {
         Task Adicionar(Produto produto);
         Task Alterar(Produto produto);

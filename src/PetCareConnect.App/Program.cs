@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PetCareConnect.App.Data;
 using PetCareConnect.Business.Interfaces;
+using PetCareConnect.Business.Notifications;
+using PetCareConnect.Business.Services;
 using PetCareConnect.Data.Contexts;
 using PetCareConnect.Data.Repositories;
 
@@ -21,6 +23,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(
 
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IServicoRepository, ServicoRepository>();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<INotificador, Notificador>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

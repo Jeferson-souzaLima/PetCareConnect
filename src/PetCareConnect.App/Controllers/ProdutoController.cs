@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PetCareConnect.App.Data;
 using PetCareConnect.App.ViewModels;
 using PetCareConnect.Business.Interfaces;
-using PetCareConnect.Business.Services;
+using PetCareConnect.Business.Models;
 
 
 namespace PetCareConnect.App.Controllers
@@ -13,24 +11,24 @@ namespace PetCareConnect.App.Controllers
     {
         public IMapper Mapper { get; }
 
-        private readonly ProdutoService _produtoService;
+        private readonly IProdutoService _produtoService;
         private readonly IProdutoRepository _produtoRepository;
 
-        public ProdutoController(ProdutoService  produtoService, IProdutoRepository produtoRepository, IMapper mapper)
+        public ProdutoController(IProdutoService produtoService, IProdutoRepository produtoRepository, IMapper mapper)
         {
             _produtoService = produtoService;
             _produtoRepository = produtoRepository;
             Mapper = mapper;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
             var produtos = await _produtoRepository.ObterTodos();
             var produtosViewModel = Mapper.Map<IEnumerable<ProdutoViewModel>>(produtos);
             return View(produtosViewModel);
         }
 
-        
+
         public async Task<IActionResult> Details(Guid id)
         {
             var produtoViewModel = Mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterPorId(id));
@@ -44,103 +42,56 @@ namespace PetCareConnect.App.Controllers
             return View();
         }
 
-        // POST: Produtos/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
-        //{
-        //    if (ModelState.IsValid) return View(produtoViewModel);
-        //    await ProdutoRepository.Adicionar(Mapper.Map<ProdutoViewModel>(produtoViewModel));
-
-        //    //addnotificador e msg tempdata
-        //    return RedirectToAction(nameof(Index));
-
-        //}
-
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Nome,Descricao,Imagem,Valor,Id")] ProdutoViewModel produtoViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        produtoViewModel.Id = Guid.NewGuid();
-        //        _context.Add(produtoViewModel);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(IndexAsync));
-        //    }
-        //    return View(produtoViewModel);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create( ProdutoViewModel produtoViewModel)
+        {
+            if (!ModelState.IsValid) return View(produtoViewModel);
+            
+                var produto = Mapper.Map<Produto>(produtoViewModel);
+                await _produtoService.Adicionar(produto);
+                return RedirectToAction(nameof(Index));
+            
+        }
 
         public async Task<IActionResult> Edit(Guid id)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
+            if (id == Guid.Empty) return NotFound();
 
-            var produtoViewModel = await _produtoRepository.ObterPorId(id);
+            var produto = await _produtoRepository.ObterPorId(id);
 
-            if (produtoViewModel == null)
-            {
-                return NotFound();
-            }
+            if (produto == null) return NotFound();
+
+            var produtoViewModel = Mapper.Map<ProdutoViewModel>(produto);
 
             return View(produtoViewModel);
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, ProdutoViewModel produtoViewModel)
         {
-            if (id != produtoViewModel.Id)
-            {
-                return NotFound();
-            }
+            if (id != produtoViewModel.Id) return NotFound();
 
             if (!ModelState.IsValid) return View(produtoViewModel);
-            //{
-            //    try
-            //    {
-            //        _context.Update(produtoViewModel);
-            //        await _context.SaveChangesAsync();
-            //    }
-            //    catch (DbUpdateConcurrencyException)
-            //    {
-            //        if (!ProdutoViewModelExists(produtoViewModel.Id))
-            //        {
-            //            return NotFound();
-            //        }
-            //        else
-            //        {
-            //            throw;
-            //        }
-            //    }
-            //    return RedirectToAction(nameof(IndexAsync));
-            //}
-            return RedirectToAction("Index");
+                
+                var produto = Mapper.Map<Produto>(produtoViewModel);
+                await _produtoService.Alterar(produto);
+                
+                return RedirectToAction(nameof(Index));
+            
         }
 
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == Guid.Empty) return NotFound();
 
-            var produtoViewModel = await _context.ProdutoViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (produtoViewModel == null)
-            {
-                return NotFound();
-            }
+            var produto = await _produtoRepository.ObterPorId(id);
+
+            if (produto == null) return NotFound();
+
+            var produtoViewModel = Mapper.Map<ProdutoViewModel>(produto);
 
             return View(produtoViewModel);
         }
@@ -149,19 +100,16 @@ namespace PetCareConnect.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var produtoViewModel = await _context.ProdutoViewModel.FindAsync(id);
-            if (produtoViewModel != null)
-            {
-                _context.ProdutoViewModel.Remove(produtoViewModel);
-            }
+            if (id == Guid.Empty) return NotFound();
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(IndexAsync));
+            await _produtoService.Remover(id);
+
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool ObterProdutoViewModel(Guid id)
-        {
-            return _context.ProdutoViewModel.Any(e => e.Id == id);
-        }
+        //        private bool ObterProdutoViewModel(Guid id)
+        //        {
+        //            return _context.ProdutoViewModel.Any(e => e.Id == id);
+        //        }
     }
-}
+    }
