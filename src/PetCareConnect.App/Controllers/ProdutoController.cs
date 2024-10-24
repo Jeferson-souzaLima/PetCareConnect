@@ -31,7 +31,7 @@ namespace PetCareConnect.App.Controllers
 
         public async Task<IActionResult> Details(Guid id)
         {
-            var produtoViewModel = Mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterPorId(id));
+            var produtoViewModel = await ObterProdutoViewModel(id);
 
             return View(produtoViewModel);
         }
@@ -58,11 +58,7 @@ namespace PetCareConnect.App.Controllers
         {
             if (id == Guid.Empty) return NotFound();
 
-            var produto = await _produtoRepository.ObterPorId(id);
-
-            if (produto == null) return NotFound();
-
-            var produtoViewModel = Mapper.Map<ProdutoViewModel>(produto);
+            var produtoViewModel = await ObterProdutoViewModel(id);
 
             return View(produtoViewModel);
         }
@@ -87,11 +83,7 @@ namespace PetCareConnect.App.Controllers
         {
             if (id == Guid.Empty) return NotFound();
 
-            var produto = await _produtoRepository.ObterPorId(id);
-
-            if (produto == null) return NotFound();
-
-            var produtoViewModel = Mapper.Map<ProdutoViewModel>(produto);
+            var produtoViewModel = await ObterProdutoViewModel(id);
 
             return View(produtoViewModel);
         }
@@ -107,9 +99,10 @@ namespace PetCareConnect.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //        private bool ObterProdutoViewModel(Guid id)
-        //        {
-        //            return _context.ProdutoViewModel.Any(e => e.Id == id);
-        //        }
+        private async Task<ProdutoViewModel> ObterProdutoViewModel(Guid id)
+        {
+            var produtoViewModel = Mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterPorId(id));
+            return produtoViewModel;
+        }
     }
-    }
+}
