@@ -12,15 +12,15 @@ using PetCareConnect.Data.Contexts;
 namespace PetCareConnect.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241008004150_PrimeirasTab")]
-    partial class PrimeirasTab
+    [Migration("20241025193540_AjustePrestador")]
+    partial class AjustePrestador
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -186,10 +186,6 @@ namespace PetCareConnect.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TB_PRESTADOR", (string)null);
-
-                    b.HasDiscriminator<string>("TipoPrestador");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("PetCareConnect.Business.Models.Produto", b =>
@@ -238,27 +234,6 @@ namespace PetCareConnect.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TB_SERVICO", (string)null);
-                });
-
-            modelBuilder.Entity("PetCareConnect.Business.Models.Freelancer", b =>
-                {
-                    b.HasBaseType("PetCareConnect.Business.Models.Prestador");
-
-                    b.HasDiscriminator().HasValue("Freelancer");
-                });
-
-            modelBuilder.Entity("PetCareConnect.Business.Models.PetShop", b =>
-                {
-                    b.HasBaseType("PetCareConnect.Business.Models.Prestador");
-
-                    b.HasDiscriminator().HasValue("PetShop");
-                });
-
-            modelBuilder.Entity("PetCareConnect.Business.Models.Vendedor", b =>
-                {
-                    b.HasBaseType("PetCareConnect.Business.Models.Prestador");
-
-                    b.HasDiscriminator().HasValue("Vendedor");
                 });
 
             modelBuilder.Entity("PetCareConnect.Business.Models.EnderecoComprador", b =>

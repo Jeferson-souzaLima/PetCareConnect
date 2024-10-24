@@ -1,13 +1,12 @@
-﻿@model PetCareConnect.App.ViewModels.ProdutoViewModel
+﻿@model PetCareConnect.App.ViewModels.PrestadorViewModel
 
 @{
-    ViewData["Title"] = "Adicionando Produto";
+    ViewData["Title"] = "Create";
 }
 
-@* <h3>Adicionando novo Produto</h3> *@
+<h1>Create</h1>
 
-<h4>Criando novo Produto</h4> 
-
+<h4>PrestadorViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,9 +18,14 @@
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
+                <label asp-for="TipoPrestador" class="control-label"></label>
+                <input asp-for="TipoPrestador" class="form-control" />
+                <span asp-validation-for="TipoPrestador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Documento" class="control-label"></label>
+                <input asp-for="Documento" class="form-control" />
+                <span asp-validation-for="Documento" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Imagem" class="control-label"></label>
@@ -29,21 +33,19 @@
                 <span asp-validation-for="Imagem" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
+                <label asp-for="Endereco" class="control-label"></label>
+                <input asp-for="Endereco" class="form-control" />
+                <span asp-validation-for="Endereco" class="text-danger"></span>
             </div>
-            <hr />
             <div class="form-group">
-                <input type="submit" value="Publicar" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-            <hr />
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Voltar</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -3,7 +3,7 @@ using PetCareConnect.Business.Enums;
 
 namespace PetCareConnect.App.ViewModels
 {
-    public abstract class PrestadorViewModel : ClienteViewModel
+    public class PrestadorViewModel : ClienteViewModel
     {
         public Guid Id { get; set; }
         public TipoPrestador TipoPrestador { get; set; }
@@ -16,6 +16,4 @@ namespace PetCareConnect.App.ViewModels
         public PrestadorViewModel Prestador { get; set; }
 
     }
-    
-
 }

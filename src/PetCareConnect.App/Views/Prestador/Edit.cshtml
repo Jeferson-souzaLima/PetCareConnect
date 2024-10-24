@@ -1,17 +1,17 @@
-﻿@model PetCareConnect.App.ViewModels.ProdutoViewModel
+﻿@model PetCareConnect.App.ViewModels.PrestadorViewModel
+
 
 @{
-    ViewData["Title"] = "Adicionando Produto";
+    ViewData["Title"] = "Edit";
 }
 
-@* <h3>Adicionando novo Produto</h3> *@
+<h1>Edit</h1>
 
-<h4>Criando novo Produto</h4> 
-
+<h4>PrestadorViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nome" class="control-label"></label>
@@ -19,31 +19,25 @@
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
+                <label asp-for="Documento" class="control-label"></label>
+                <input asp-for="Documento" class="form-control" />
+                <span asp-validation-for="Documento" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Imagem" class="control-label"></label>
                 <input asp-for="Imagem" class="form-control" />
                 <span asp-validation-for="Imagem" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-            <hr />
-            <div class="form-group">
-                <input type="submit" value="Publicar" class="btn btn-primary" />
-            </div>
-            <hr />
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Voltar</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

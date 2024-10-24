@@ -4,12 +4,11 @@ using PetCareConnect.Data.Contexts;
 
 namespace PetCareConnect.Data.Repositories
 {
-    public class ProdutoRepository : BaseRepository<Produto>, IProdutoRepository
+    public class PrestadorRepository : BaseRepository<Prestador>, IPrestadorRepository
     {
-        public ProdutoRepository(AppDbContext appDbContext) : base (appDbContext)
+        public PrestadorRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-            
+
         }
     }
-
 }

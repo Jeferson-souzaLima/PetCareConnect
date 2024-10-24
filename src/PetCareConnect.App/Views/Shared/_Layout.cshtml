@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PetCareConnect.App.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300400600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="~/img/FaviconPetCare.png">
 </head>
 <body>
@@ -35,7 +35,14 @@
         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <img class="carrinho" src="~/img/Carrinho.png" /> </a>
         </div>
 
-        <partial name="_LoginPartial" />
+        <div class="btn-group">
+            <button type="button" class="btn-menu dropdown-toggle text-uppercase fs-3" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                <i class="bi bi-user"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-lg-end rounded-5 fs-4" style="width: 208px;">
+                <li><partial name="_LoginPartial" /></li>
+            </ul>
+        </div>
 
         </div>
         </div>
@@ -46,7 +53,7 @@
 
     <div class="container d-flex justify-content-center">
 
-        <a asp-area="" asp-controller="Produto" asp-action="Index" class="btn btn-categorias fw-bold ms-3">Lojas</a>
+        <a asp-area="" asp-controller="Prestador" asp-action="Index" class="btn btn-categorias fw-bold ms-3">Lojas</a>
 
         <a asp-area="" asp-controller="Produto" asp-action="Index" class="btn btn-categorias fw-bold ms-3">Produtos</a>
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PetCareConnect.App.Migrations
 {
     /// <inheritdoc />
-    public partial class adcionandoTebelasLogin : Migration
+    public partial class IdentityNew : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

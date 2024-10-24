@@ -1,12 +1,16 @@
 ﻿using FluentValidation;
 using PetCareConnect.Business.Models;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PetCareConnect.Business.Validations
 {
-    public class ProdutoValidation : AbstractValidator<Produto>
+    public class ServicoValidation : AbstractValidator<Servico>
     {
-        public ProdutoValidation()
+        public ServicoValidation()
         {
             RuleFor(c => c.Nome)
                 .NotEmpty()
@@ -24,7 +28,6 @@ namespace PetCareConnect.Business.Validations
                 .GreaterThan(0)
                 .WithMessage("O campo {PropertyName} precisa ser maior que {ComparisionValue}");
 
-            //Imagem
         }
     }
 }

@@ -34,13 +34,13 @@ namespace PetCareConnect.Data.Mappings
                 .WithOne(c => c.Prestador)
                 .HasForeignKey("EnderecoPrestador", "PrestadorId");
 
-            builder.HasDiscriminator<TipoPrestador>("TipoPrestador")
+            //builder.HasDiscriminator<TipoPrestador>("TipoPrestador")
 
-            .HasValue<PetShop>(TipoPrestador.PetShop)
+            //.HasValue<PetShop>(TipoPrestador.PetShop)
 
-            .HasValue<Vendedor>(TipoPrestador.Vendedor)
+            //.HasValue<Vendedor>(TipoPrestador.Vendedor)
 
-            .HasValue<Freelancer>(TipoPrestador.Freelancer);
+            //.HasValue<Freelancer>(TipoPrestador.Freelancer);
 
             builder.Property(e => e.TipoPrestador)
                 .HasColumnType("varchar(100)");

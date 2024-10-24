@@ -183,10 +183,6 @@ namespace PetCareConnect.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TB_PRESTADOR", (string)null);
-
-                    b.HasDiscriminator<string>("TipoPrestador");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("PetCareConnect.Business.Models.Produto", b =>
@@ -235,27 +231,6 @@ namespace PetCareConnect.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TB_SERVICO", (string)null);
-                });
-
-            modelBuilder.Entity("PetCareConnect.Business.Models.Freelancer", b =>
-                {
-                    b.HasBaseType("PetCareConnect.Business.Models.Prestador");
-
-                    b.HasDiscriminator().HasValue("Freelancer");
-                });
-
-            modelBuilder.Entity("PetCareConnect.Business.Models.PetShop", b =>
-                {
-                    b.HasBaseType("PetCareConnect.Business.Models.Prestador");
-
-                    b.HasDiscriminator().HasValue("PetShop");
-                });
-
-            modelBuilder.Entity("PetCareConnect.Business.Models.Vendedor", b =>
-                {
-                    b.HasBaseType("PetCareConnect.Business.Models.Prestador");
-
-                    b.HasDiscriminator().HasValue("Vendedor");
                 });
 
             modelBuilder.Entity("PetCareConnect.Business.Models.EnderecoComprador", b =>

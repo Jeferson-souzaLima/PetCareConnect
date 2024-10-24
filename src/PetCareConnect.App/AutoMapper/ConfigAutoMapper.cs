@@ -18,15 +18,11 @@ namespace PetCareConnect.App.AutoMapper
 
             CreateMap<EnderecoPrestador, EnderecoPrestadorViewModel>().ReverseMap();
 
-            CreateMap<Freelancer, FreelancerViewModel>().ReverseMap();
-
             CreateMap<Prestador, PrestadorViewModel>().ReverseMap();
 
             CreateMap<Servico, ServicoViewModel>().ReverseMap();
 
             CreateMap<Produto, ProdutoViewModel>().ReverseMap();
-
-            CreateMap<Vendedor, VendedorViewModel>().ReverseMap();
 
             CreateMap<Pet, PetViewModel>().ReverseMap();
 

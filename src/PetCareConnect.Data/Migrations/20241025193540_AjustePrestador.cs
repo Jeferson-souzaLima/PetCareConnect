@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PetCareConnect.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class PrimeirasTab : Migration
+    public partial class AjustePrestador : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

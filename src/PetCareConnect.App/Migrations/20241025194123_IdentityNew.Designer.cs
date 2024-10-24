@@ -12,8 +12,8 @@ using PetCareConnect.App.Data;
 namespace PetCareConnect.App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241014201037_adcionandoTebelasLogin")]
-    partial class adcionandoTebelasLogin
+    [Migration("20241025194123_IdentityNew")]
+    partial class IdentityNew
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,7 +227,7 @@ namespace PetCareConnect.App.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PetCareConnect.Business.Models.ProdutoViewModel", b =>
+            modelBuilder.Entity("PetCareConnect.App.ViewModels.ProdutoViewModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -250,7 +250,7 @@ namespace PetCareConnect.App.Migrations
                     b.ToTable("ProdutoViewModel");
                 });
 
-            modelBuilder.Entity("PetCareConnect.Business.Models.ServicoViewModel", b =>
+            modelBuilder.Entity("PetCareConnect.App.ViewModels.ServicoViewModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

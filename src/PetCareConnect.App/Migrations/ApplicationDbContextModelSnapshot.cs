@@ -224,7 +224,7 @@ namespace PetCareConnect.App.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PetCareConnect.Business.Models.ProdutoViewModel", b =>
+            modelBuilder.Entity("PetCareConnect.App.ViewModels.ProdutoViewModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -247,7 +247,7 @@ namespace PetCareConnect.App.Migrations
                     b.ToTable("ProdutoViewModel");
                 });
 
-            modelBuilder.Entity("PetCareConnect.Business.Models.ServicoViewModel", b =>
+            modelBuilder.Entity("PetCareConnect.App.ViewModels.ServicoViewModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

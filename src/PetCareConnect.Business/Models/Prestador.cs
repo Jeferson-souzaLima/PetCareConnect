@@ -7,21 +7,10 @@ using System.Threading.Tasks;
 
 namespace PetCareConnect.Business.Models
 {
-    public abstract class Prestador : Cliente
+    public class Prestador : Cliente
     {
         public TipoPrestador TipoPrestador { get; set; }
         public EnderecoPrestador Endereco { get; set; }
-
-        //protected Prestador(string nome, string documento, string imagem, TipoPrestador tipoPrestador, EnderecoPrestador enderecoPrestador) : base(nome, documento, imagem)
-        //{
-        //    TipoPrestador = tipoPrestador;
-        //    Endereco = enderecoPrestador;
-        //}
-        //protected Prestador()
-        //{
-
-        //}
-
     }
 
     public class EnderecoPrestador : Endereco

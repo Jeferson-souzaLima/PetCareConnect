@@ -51,7 +51,6 @@ namespace PetCareConnect.App.Controllers
                 var produto = Mapper.Map<Produto>(produtoViewModel);
                 await _produtoService.Adicionar(produto);
                 return RedirectToAction(nameof(Index));
-            
         }
 
         public async Task<IActionResult> Edit(Guid id)
@@ -76,7 +75,6 @@ namespace PetCareConnect.App.Controllers
                 await _produtoService.Alterar(produto);
                 
                 return RedirectToAction(nameof(Index));
-            
         }
 
         public async Task<IActionResult> Delete(Guid id)
