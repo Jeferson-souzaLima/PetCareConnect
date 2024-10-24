@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PetCareConnect.Business.Interfaces
 {
-    public interface IProdutoRepository : IBaseRepository<Produto>
+    public interface IPrestadorRepository : IBaseRepository<Prestador>
     {
     }
 }

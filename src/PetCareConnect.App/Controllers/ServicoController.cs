@@ -1,122 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using PetCareConnect.App.Data;
 using PetCareConnect.App.ViewModels;
 using PetCareConnect.Business.Interfaces;
 using PetCareConnect.Business.Models;
-using PetCareConnect.Data.Repositories;
 
 namespace PetCareConnect.App.Controllers
 {
     public class ServicoController : Controller
     {
-        public IServicoRepository ServicoRepository { get; }
         public IMapper Mapper { get; }
 
-        private readonly ApplicationDbContext _context;
+        private readonly IServicoService _servicoService;
+        private readonly IServicoRepository _servicoRepository;
 
-        public ServicoController(ApplicationDbContext context, IServicoRepository servicoRepository, IMapper mapper)
+        public ServicoController( IServicoService servicoService, IServicoRepository servicoRepository, IMapper mapper)
         {
-            _context = context;
-            ServicoRepository = servicoRepository;
+            _servicoService = servicoService;
+            _servicoRepository = servicoRepository;
             Mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(Mapper.Map<IEnumerable<ServicoViewModel>>(await ServicoRepository.ObterTodos()));
-        }
-
-
-        //public async Task<IActionResult> IndexAsync()
-        //{
-        //    var servico = await ServicoRepository.ObterTodos();
-        //    var servicoViewModel = Mapper.Map<IEnumerable<ServicoViewModel>>(servico);
-        //    return View(servicoViewModel);
-        //}
-
-
-        public async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var servicoViewModel = await _context.ServicoViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (servicoViewModel == null)
-            {
-                return NotFound();
-            }
-
+            var servicos = await _servicoRepository.ObterTodos();
+            var servicoViewModel = Mapper.Map<IEnumerable<ServicoViewModel>>(servicos);
             return View(servicoViewModel);
         }
 
+
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var servicoViewModel = await ObterServicoViewModel(id);
+            return View(servicoViewModel);
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome,Descricao,Valor,Id")] ServicoViewModel servicoViewModel)
+        public async Task<IActionResult> Create(ServicoViewModel servicoViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                servicoViewModel.Id = Guid.NewGuid();
-                _context.Add(servicoViewModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(servicoViewModel);
+            if (!ModelState.IsValid) return View(servicoViewModel);
+            var servico = Mapper.Map<Servico>(servicoViewModel);
+            await _servicoService.Adicionar(servico);
+            return RedirectToAction(nameof(Index));
+
         }
 
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var servicoViewModel = await _context.ServicoViewModel.FindAsync(id);
-            if (servicoViewModel == null)
-            {
-                return NotFound();
-            }
+            if (id == Guid.Empty) return NotFound();
+            var servicoViewModel = await ObterServicoViewModel(id);
             return View(servicoViewModel);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, [Bind("Nome,Descricao,Valor,Id")] ServicoViewModel servicoViewModel)
+        public async Task<IActionResult> Edit(Guid id, ServicoViewModel servicoViewModel)
         {
-
-            return View(servicoViewModel);
+            if (id != servicoViewModel.Id) return NotFound();
+            if (!ModelState.IsValid) return View(servicoViewModel);
+            var servico = Mapper.Map<Servico>(servicoViewModel);
+            await _servicoService.Alterar(servico);
+            return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var servicoViewModel = await _context.ServicoViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (servicoViewModel == null)
-            {
-                return NotFound();
-            }
-
+            if (id == Guid.Empty) return NotFound();
+            var servicoViewModel = await ObterServicoViewModel(id);
             return View(servicoViewModel);
         }
 
@@ -124,20 +81,15 @@ namespace PetCareConnect.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var servicoViewModel = await _context.ServicoViewModel.FindAsync(id);
-            if (servicoViewModel != null)
-            {
-                _context.ServicoViewModel.Remove(servicoViewModel);
-            }
-
-            await _context.SaveChangesAsync();
+            if (id == Guid.Empty) return NotFound();
+            await _servicoService.Remover(id);
             return RedirectToAction(nameof(Index));
         }
 
-        //RECOMENDADO REMOVER
-        //private bool ServicoViewModelExists(Guid id)
-        //{
-        //    return _context.ServicoViewModel.Any(e => e.Id == id);
-        //}
+        private async Task<ServicoViewModel> ObterServicoViewModel(Guid id)
+        {
+            var servicoViewModel = Mapper.Map<ServicoViewModel>(await _servicoRepository.ObterPorId(id));
+            return servicoViewModel;
+        }
     }
 }

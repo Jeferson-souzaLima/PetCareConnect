@@ -1,13 +1,105 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using PetCareConnect.App.ViewModels;
+using PetCareConnect.Business.Interfaces;
+using PetCareConnect.Business.Models;
 
 namespace PetCareConnect.App.Controllers
 {
     public class PrestadorController : Controller
     {
+        public IMapper Mapper { get; }
 
-        public IActionResult Index()
+        private readonly IPrestadorService _prestadorService;
+        private readonly IPrestadorRepository _prestadorRepository;
+
+        public PrestadorController(IPrestadorService prestadorService, IPrestadorRepository prestadorRepository, IMapper mapper)
+        {
+            _prestadorService = prestadorService;
+            _prestadorRepository = prestadorRepository;
+            Mapper = mapper;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var prestador = await _prestadorRepository.ObterTodos();
+            var prestadorViewModel = Mapper.Map<IEnumerable<PrestadorViewModel>>(prestador);
+            return View(prestadorViewModel);
+        }
+
+
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var prestadorViewModel = await ObterPrestadorViewModel(id);
+
+            return View(prestadorViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(PrestadorViewModel prestadorViewModel)
+        {
+            if (!ModelState.IsValid) return View(prestadorViewModel);
+
+            var prestador = Mapper.Map<Prestador>(prestadorViewModel);
+            await _prestadorService.Adicionar(prestador);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            if (id == Guid.Empty) return NotFound();
+
+            var prestadorViewModel = await ObterPrestadorViewModel(id);
+
+            return View(prestadorViewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, PrestadorViewModel prestadorViewModel)
+        {
+            if (id != prestadorViewModel.Id) return NotFound();
+
+            if (!ModelState.IsValid) return View(prestadorViewModel);
+
+            var prestador = Mapper.Map<Produto>(prestadorViewModel);
+            await _prestadorService.Alterar(prestador);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            if (id == Guid.Empty) return NotFound();
+
+            var prestadorViewModel = await ObterPrestadorViewModel(id);
+
+            return View(prestadorViewModel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            if (id == Guid.Empty) return NotFound();
+
+            await _prestadorService.Remover(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<PrestadorViewModel> ObterPrestadorViewModel(Guid id)
+        {
+            var prestadorViewModel = Mapper.Map<PrestadorViewModel>(await _prestadorRepository.ObterPorId(id));
+            return prestadorViewModel;
         }
     }
 }
