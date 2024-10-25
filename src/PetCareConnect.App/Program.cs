@@ -31,6 +31,7 @@ builder.Services.AddScoped<IPrestadorRepository, PrestadorRepository>();
 builder.Services.AddScoped<IPrestadorService, PrestadorService>();
 
 builder.Services.AddScoped<INotificador, Notificador>();
+builder.Services.AddScoped<IServicoService, ServicoService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
