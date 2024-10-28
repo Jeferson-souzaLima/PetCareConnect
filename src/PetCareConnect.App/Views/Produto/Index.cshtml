@@ -1,53 +1,18 @@
-﻿@model IEnumerable<PetCareConnect.App.ViewModels.ProdutoViewModel>
+﻿ @model IEnumerable<PetCareConnect.App.ViewModels.ProdutoViewModel>
 
-@{
-    ViewData["Title"] = "Produtos";
-}
+<h1 class="h1">Com descontos de até 20%</h1>
 
 <p>
-    @* <a asp-action="Create">Create New</a> *@
-    <a asp-action="Create" class="btn btn-categorias fw-bold ms-3">Criar produto</a>
+    <a asp-action="Create" class="btn btn-categorias  ms-3">Criar produto</a>
 </p>
+<section class="produtos">
+    @foreach (var item in Model)
+    {
+        <div class="produto-card">
+            @* <img src="@item.Imagem" alt="@item.Nome" class="produto-imagem" /> *@
+            <h2 class="produto-nome">@item.Nome</h2>
+            <p class="produto-preco">@item.Valor.ToString("C")</p> <!-- Formata o preço como moeda -->
+        </div>
+    }
+</section>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagem)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Valor)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) 
-{
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagem)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-categorias fw-bold ms-3">Editar</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-categorias fw-bold ms-3">Detalhes</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-categorias fw-bold ms-3">Deletar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

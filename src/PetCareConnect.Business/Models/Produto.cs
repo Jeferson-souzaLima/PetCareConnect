@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PetCareConnect.Business.Models
+﻿namespace PetCareConnect.Business.Models
 {
     public class Produto : BaseEntity
     {

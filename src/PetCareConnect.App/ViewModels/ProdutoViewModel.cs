@@ -9,6 +9,7 @@ namespace PetCareConnect.App.ViewModels
         public string Imagem { get; set; }
         public decimal Valor { get; set; }
         //public string Categoria { get; set; }
+        public IFormFile ImagemUpload { get; set; }
     }
 
     public class CategoriaProdutoViewModel 

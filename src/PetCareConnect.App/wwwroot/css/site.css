@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400&display=swap');
+
 html {
     font-size: 14px;
 }
@@ -47,7 +49,7 @@ body {
     width: 160px;
     height: 50px;
     font-size: 20px;
-    font-family: 'Josefin Sans'; 
+    font-family: 'Josefin Sans';
     color: #589B60;
     align-content: center;
 }
@@ -57,4 +59,237 @@ body {
 }
 .search{
     border-radius: 14px;
+}
+.h1 {
+    font-family: 'Josefin Sans';
+    color: #589B60;
+    font-size: 30px;
+}
+
+/*----------lojas-------------*/
+.lojas {
+    display: flex;
+    flex-direction: column; /* Cada loja em uma linha */
+    align-items: center; 
+}
+
+.loja-card {
+    background-color: white;
+    border-radius: 10px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Faz o cartão ocupar toda a largura */
+    max-width: 1200px; /* Aumenta a largura máxima do cartão */
+    height: 200px; /* Mantém a altura fixa dos cartões */
+    margin: 20px 0; /* Espaçamento vertical entre os cartões */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinha itens verticalmente */
+    padding: 20px; /* Aumenta o padding interno */
+}
+
+.loja-info {
+    flex: 1; /* Permite que a área da informação ocupe o espaço disponível */
+    margin-right: 15px; 
+}
+
+.loja-horario, .loja-endereco {
+    font-size: 16px; 
+    color: #666; 
+}
+
+.loja-foto {
+    max-width: 150px; 
+    border-radius: 8px; 
+}
+
+/*-Botão Opções-*/
+.dropdown {
+    position: relative; /* Para posicionar o menu suspenso */
+}
+
+.btn-dropdown {
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dropdown-content {
+    display: none; /* Oculta o menu por padrão */
+    position: absolute; /* Para posicionar em relação ao botão */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1; /* Para garantir que o menu fique acima de outros elementos */
+    margin-top: 5px; /* Espaçamento entre o botão e o menu */
+    width: 150px; /* Largura do menu */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Exibe o menu ao passar o mouse */
+}
+
+.dropdown-content a {
+    color: black; 
+    padding: 10px;
+    text-decoration: none; /* Remove o sublinhado */
+    display: block; /* Cada link ocupa uma linha */
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1; /* Cor de fundo ao passar o mouse */
+}
+
+/*------------Produtos---------------*/
+.produtos {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os produtos se movam para a linha abaixo quando excederem o espaço */
+    justify-content: center; /* Centraliza os produtos na linha */
+}
+
+.produto-card {
+    background-color: white;
+    border-radius: 10px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 180px; 
+    margin: 15px; 
+    text-align: center; 
+}
+
+.produto-imagem {
+    width: 100%; 
+    border-top-left-radius: 10px; /* Arredonda os cantos da parte superior */
+    border-top-right-radius: 10px; /* Arredonda os cantos da parte superior */
+}
+
+.produto-nome {
+    color: #589B60; 
+    font-size: 16px; 
+    margin: 10px 0 5px; 
+}
+
+.produto-preco {
+    font-size: 14px; 
+    color: #666; 
+}
+
+/*--------------Serviços----------*/
+.servicos {
+    text-align: center; 
+}
+
+.servicos-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os serviços se movam para a linha abaixo quando excederem o espaço */
+    justify-content: center; 
+}
+
+.servico-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 180px;
+    margin: 15px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s; /* Adiciona transição suave */
+    cursor: pointer;
+}
+
+.servico-nome {
+    color: #0E5617; 
+    font-size: 18px; 
+    margin: 10px 0; 
+}
+
+.servico-card:hover {
+    transform: translateY(-5px); /* Eleva o cartão levemente */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Aumenta a sombra */
+    background-color: #0E5617;
+    color: white;
+}
+
+.servico-card:hover .servico-nome,
+.servico-card:hover .servico-descricao,
+.servico-card:hover .servico-preco {
+    color: white; 
+}
+
+/*Serviços Create*/
+.form-servico {
+    background-color: #f9f9f9; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.form-group {
+    margin-bottom: 15px; 
+}
+
+.control-label {
+    font-weight: bold; 
+}
+
+.form-control {
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    transition: border-color 0.3s; 
+}
+
+.form-control:focus {
+    border-color: #589B60; 
+    box-shadow: 0 0 5px rgba(88, 155, 96, 0.5); 
+}
+
+.btn-servico {
+    background-color: #589B60; 
+    color: white; 
+    width: 100%; 
+    padding: 10px; 
+    border: none; 
+    border-radius: 5px; 
+    transition: background-color 0.3s; /* Transição suave para o fundo */
+}
+
+.btn-servico:hover {
+    background-color: #457A50; /* Cor do botão ao passar o mouse */
+}
+
+.link-back {
+    display: inline-block; /* Alinha corretamente */
+    margin-top: 20px; /* Espaçamento acima */
+    color: #589B60; /* Cor do link */
+    text-decoration: none; /* Remove o sublinhado */
+}
+
+.link-back:hover {
+    text-decoration: underline; /* Sublinha ao passar o mouse */
+}
+
+/*Janela detalhes Serviço*/
+.details-modal {
+    margin-top: 100px;
+    display: none; /* Inicialmente escondida */
+    position: fixed; /* Fixa na tela */
+    right: 0; 
+    top: 0; 
+    width: 600px; 
+    height: 80%; 
+    background-color: white; 
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); 
+    border-top-left-radius: 10px; 
+    border-bottom-left-radius: 10px; 
+    transition: transform 0.3s ease; /* Transição suave */
+}
+
+.modal-content {
+    padding: 20px; /* Espaçamento interno */
+}
+
+.close {
+    cursor: pointer; /* Cursor de mão para indicar que é clicável */
+    font-size: 24px; 
+    float: right; 
 }

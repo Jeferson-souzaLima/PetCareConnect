@@ -44,14 +44,42 @@ namespace PetCareConnect.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( ProdutoViewModel produtoViewModel)
+        public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
         {
             if (!ModelState.IsValid) return View(produtoViewModel);
-            
-                var produto = Mapper.Map<Produto>(produtoViewModel);
-                await _produtoService.Adicionar(produto);
-                return RedirectToAction(nameof(Index));
+
+            if (produtoViewModel.ImagemUpload != null && produtoViewModel.ImagemUpload.Length > 0)
+            {
+                // Caminho onde a imagem será salva
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens");
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + produtoViewModel.ImagemUpload.FileName;
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                // Salvar a imagem
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await produtoViewModel.ImagemUpload.CopyToAsync(fileStream);
+                }
+
+                produtoViewModel.Imagem = "/imagens/" + uniqueFileName; // Atualiza o caminho da imagem
+            }
+
+            var produto = Mapper.Map<Produto>(produtoViewModel);
+            await _produtoService.Adicionar(produto);
+            return RedirectToAction(nameof(Index));
         }
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
+        //{
+        //    if (!ModelState.IsValid) return View(produtoViewModel);
+
+        //    var produto = Mapper.Map<Produto>(produtoViewModel);
+        //    await _produtoService.Adicionar(produto);
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         public async Task<IActionResult> Edit(Guid id)
         {

@@ -1,13 +1,13 @@
-﻿@model IEnumerable<PetCareConnect.App.ViewModels.PrestadorViewModel>
+﻿@* @model IEnumerable<PetCareConnect.App.ViewModels.PrestadorViewModel>
 
 @{
     ViewData["Title"] = "Prestador";
 }
 
-<h1>Index</h1>
+<h1>Próximos de você</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Adicionar Loja</a>
 </p>
 <table class="table">
     <thead>
@@ -56,3 +56,38 @@
 }
     </tbody>
 </table>
+ *@
+ @model IEnumerable<PetCareConnect.App.ViewModels.PrestadorViewModel>
+
+@{
+    ViewData["Title"] = "Lojas";
+}
+
+<h1 class="h1">Próximos de você...</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-categorias fw-bold ms-3">Adicionar Loja</a>
+</p> 
+
+<section class="lojas">
+    @foreach (var item in Model)
+    {
+        <div class="loja-card">
+            <div class="loja-info">
+                <h2>@item.Nome</h2>
+                @* <div class="loja-horario">@item.HorarioFuncionamento</div> *@
+                <div class="loja-endereco">@item.Endereco</div>
+            </div>
+            <img src="@item.Imagem" alt="@item.Nome" class="loja-foto" />
+            <div class="dropdown">
+                <button class="btn-dropdown">Opções</button>
+                <div class="dropdown-content">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+

@@ -4,45 +4,69 @@
     ViewData["Title"] = "Serviços";
 }
 
-@* <h1>Index</h1> *@
+<h1 class="h1">Para seu Pet</h1>
 
 <p>
-    @* <a asp-action="Create">Create New</a> *@
     <a asp-action="Create" class="btn btn-categorias fw-bold ms-3">Criar serviço</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Valor)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-categorias fw-bold ms-3">Editar</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-categorias fw-bold ms-3">Detalhes</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-categorias fw-bold ms-3">Deletar</a>
-            </td>
-        </tr>
+
+<section class="servicos">
+    <div class="servicos-container">
+        @foreach (var item in Model)
+        {
+            <div class="servico-card" onclick="openDetails('@item.Id', '@item.Nome', '@item.Descricao', '@item.Valor')">
+                <h5 class="servico-nome">@item.Nome</h5>
+            </div>
+        }
+    </div>
+</section>
+
+<div id="detailsModal" class="details-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeDetails()">&times;</span>
+        <h2 id="servico-nome">Detalhes do Serviço</h2>
+        <p id="detalhes-servico"></p>
+        <div class="modal-buttons">
+            <a id="details-button" class="btn btn-info" href="">Detalhes</a>
+            <a id="edit-button" class="btn btn-warning" href="">Editar</a>
+            <form id="delete-form" method="post" style="display: inline;">
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Deletar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*Javascript*@
+@section Scripts {
+    <script>
+        function openDetails(id, nome, descricao, valor) {
+            document.getElementById('servico-nome').innerText = nome;
+            const detalhes = `Descrição: ${descricao} \nPreço: R$ ${valor}`;
+            document.getElementById('detalhes-servico').innerText = detalhes;
+
+            const detailsButton = document.getElementById('details-button');
+            detailsButton.href = '/Servico/Details/' + id; 
+
+            const editButton = document.getElementById('edit-button');
+            editButton.href = '/Servico/Edit/' + id; 
+
+            const deleteForm = document.getElementById('delete-form');
+            deleteForm.action = '/Servico/Delete/' + id; 
+
+            const modal = document.getElementById('detailsModal');
+            modal.style.display = 'block';
+        }
+
+        function closeDetails() {
+            const modal = document.getElementById('detailsModal');
+            modal.style.display = 'none';
+        }
+
+        function confirmDelete() {
+            if (confirm('Você realmente deseja deletar este serviço?')) {
+                const deleteForm = document.getElementById('delete-form');
+                deleteForm.submit();
+            }
+        }
+    </script>
 }
-    </tbody>
-</table>
