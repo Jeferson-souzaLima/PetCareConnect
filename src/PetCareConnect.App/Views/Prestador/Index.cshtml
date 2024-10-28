@@ -1,63 +1,4 @@
-﻿@* @model IEnumerable<PetCareConnect.App.ViewModels.PrestadorViewModel>
-
-@{
-    ViewData["Title"] = "Prestador";
-}
-
-<h1>Próximos de você</h1>
-
-<p>
-    <a asp-action="Create">Adicionar Loja</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Documento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagem)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoPrestador)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Endereco)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Documento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagem)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoPrestador)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Endereco)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
- *@
- @model IEnumerable<PetCareConnect.App.ViewModels.PrestadorViewModel>
+﻿ @model IEnumerable<PetCareConnect.App.ViewModels.PrestadorViewModel>
 
 @{
     ViewData["Title"] = "Lojas";
@@ -78,7 +19,7 @@
                 @* <div class="loja-horario">@item.HorarioFuncionamento</div> *@
                 <div class="loja-endereco">@item.Endereco</div>
             </div>
-            <img src="@item.Imagem" alt="@item.Nome" class="loja-foto" />
+            <img src="~/img/@item.Imagem" alt="@item.Nome" class="loja-foto" />
             <div class="dropdown">
                 <button class="btn-dropdown">Opções</button>
                 <div class="dropdown-content">

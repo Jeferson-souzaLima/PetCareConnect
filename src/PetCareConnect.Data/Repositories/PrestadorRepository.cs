@@ -10,5 +10,10 @@ namespace PetCareConnect.Data.Repositories
         {
 
         }
+
+        Task IPrestadorRepository.Adicionar(Servico prestador)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

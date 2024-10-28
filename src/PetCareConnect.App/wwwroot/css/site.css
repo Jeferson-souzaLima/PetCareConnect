@@ -69,7 +69,7 @@ body {
 /*----------lojas-------------*/
 .lojas {
     display: flex;
-    flex-direction: column; /* Cada loja em uma linha */
+    flex-direction: column; 
     align-items: center; 
 }
 
@@ -77,18 +77,18 @@ body {
     background-color: white;
     border-radius: 10px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Faz o cartão ocupar toda a largura */
-    max-width: 1200px; /* Aumenta a largura máxima do cartão */
-    height: 200px; /* Mantém a altura fixa dos cartões */
-    margin: 20px 0; /* Espaçamento vertical entre os cartões */
+    width: 100%; 
+    max-width: 1200px; 
+    height: 200px; 
+    margin: 20px 0; 
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Alinha itens verticalmente */
-    padding: 20px; /* Aumenta o padding interno */
+    align-items: center; 
+    padding: 20px; 
 }
 
 .loja-info {
-    flex: 1; /* Permite que a área da informação ocupe o espaço disponível */
+    flex: 1; 
     margin-right: 15px; 
 }
 
@@ -104,7 +104,7 @@ body {
 
 /*-Botão Opções-*/
 .dropdown {
-    position: relative; /* Para posicionar o menu suspenso */
+    position: relative; 
 }
 
 .btn-dropdown {
@@ -117,57 +117,59 @@ body {
 }
 
 .dropdown-content {
-    display: none; /* Oculta o menu por padrão */
-    position: absolute; /* Para posicionar em relação ao botão */
+    display: none; 
+    position: absolute; 
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
-    z-index: 1; /* Para garantir que o menu fique acima de outros elementos */
-    margin-top: 5px; /* Espaçamento entre o botão e o menu */
-    width: 150px; /* Largura do menu */
+    z-index: 1; 
+    margin-top: 5px; 
+    width: 150px; 
 }
 
 .dropdown:hover .dropdown-content {
-    display: block; /* Exibe o menu ao passar o mouse */
+    display: block; 
 }
 
 .dropdown-content a {
     color: black; 
     padding: 10px;
-    text-decoration: none; /* Remove o sublinhado */
-    display: block; /* Cada link ocupa uma linha */
+    text-decoration: none; 
+    display: block; 
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1; /* Cor de fundo ao passar o mouse */
+    background-color: #f1f1f1; 
 }
 
 /*------------Produtos---------------*/
 .produtos {
     display: flex;
-    flex-wrap: wrap; /* Permite que os produtos se movam para a linha abaixo quando excederem o espaço */
-    justify-content: center; /* Centraliza os produtos na linha */
+    flex-wrap: wrap; 
+    justify-content: center; 
 }
 
 .produto-card {
     background-color: white;
-    border-radius: 10px; 
+    border-radius: 30px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 250px;
     width: 180px; 
     margin: 15px; 
     text-align: center; 
 }
 
 .produto-imagem {
-    width: 100%; 
-    border-top-left-radius: 10px; /* Arredonda os cantos da parte superior */
-    border-top-right-radius: 10px; /* Arredonda os cantos da parte superior */
+    width: 100%;
+    margin: 10px 0 5px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
 }
 
 .produto-nome {
     color: #589B60; 
     font-size: 16px; 
-    margin: 10px 0 5px; 
+    margin: 8px 0 5px; 
 }
 
 .produto-preco {
@@ -175,14 +177,14 @@ body {
     color: #666; 
 }
 
-/*--------------Serviços----------*/
+/*--------------Serviços------------*/
 .servicos {
     text-align: center; 
 }
 
 .servicos-container {
     display: flex;
-    flex-wrap: wrap; /* Permite que os serviços se movam para a linha abaixo quando excederem o espaço */
+    flex-wrap: wrap; 
     justify-content: center; 
 }
 
@@ -193,7 +195,7 @@ body {
     width: 180px;
     margin: 15px;
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s; /* Adiciona transição suave */
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s; 
     cursor: pointer;
 }
 
@@ -204,8 +206,8 @@ body {
 }
 
 .servico-card:hover {
-    transform: translateY(-5px); /* Eleva o cartão levemente */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Aumenta a sombra */
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
     background-color: #0E5617;
     color: white;
 }
@@ -250,46 +252,46 @@ body {
     padding: 10px; 
     border: none; 
     border-radius: 5px; 
-    transition: background-color 0.3s; /* Transição suave para o fundo */
+    transition: background-color 0.3s; 
 }
 
 .btn-servico:hover {
-    background-color: #457A50; /* Cor do botão ao passar o mouse */
+    background-color: #457A50; 
 }
 
 .link-back {
-    display: inline-block; /* Alinha corretamente */
-    margin-top: 20px; /* Espaçamento acima */
-    color: #589B60; /* Cor do link */
-    text-decoration: none; /* Remove o sublinhado */
+    display: inline-block; 
+    margin-top: 20px; 
+    color: #589B60; 
+    text-decoration: none; 
 }
 
 .link-back:hover {
-    text-decoration: underline; /* Sublinha ao passar o mouse */
+    text-decoration: underline; 
 }
 
 /*Janela detalhes Serviço*/
 .details-modal {
     margin-top: 100px;
-    display: none; /* Inicialmente escondida */
-    position: fixed; /* Fixa na tela */
+    display: none; 
+    position: fixed; 
     right: 0; 
     top: 0; 
     width: 600px; 
     height: 80%; 
     background-color: white; 
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); 
-    border-top-left-radius: 10px; 
-    border-bottom-left-radius: 10px; 
-    transition: transform 0.3s ease; /* Transição suave */
+    border-top-left-radius: 45px; 
+    border-bottom-left-radius: 45px; 
+    transition: transform 0.3s ease; 
 }
 
 .modal-content {
-    padding: 20px; /* Espaçamento interno */
+    padding: 20px; 
 }
 
 .close {
-    cursor: pointer; /* Cursor de mão para indicar que é clicável */
+    cursor: pointer; 
     font-size: 24px; 
     float: right; 
 }

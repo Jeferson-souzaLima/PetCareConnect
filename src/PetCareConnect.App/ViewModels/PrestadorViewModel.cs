@@ -8,6 +8,8 @@ namespace PetCareConnect.App.ViewModels
         public Guid Id { get; set; }
         public TipoPrestador TipoPrestador { get; set; }
         public EnderecoPrestadorViewModel Endereco { get; set; }
+        public IFormFile ImagemUpload {  get; set; }
+        public string Imagem { get; set; }
     }
 
     public class EnderecoPrestadorViewModel : EnderecoViewModel

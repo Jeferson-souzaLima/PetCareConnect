@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using PetCareConnect.App.ViewModels;
 using PetCareConnect.Business.Interfaces;
 using PetCareConnect.Business.Models;
+using PetCareConnect.Business.Services;
+using PetCareConnect.Data.Repositories;
 
 namespace PetCareConnect.App.Controllers
 {
@@ -27,14 +29,6 @@ namespace PetCareConnect.App.Controllers
             return View(prestadorViewModel);
         }
 
-
-        public async Task<IActionResult> Details(Guid id)
-        {
-            var prestadorViewModel = await ObterPrestadorViewModel(id);
-
-            return View(prestadorViewModel);
-        }
-
         [HttpGet]
         public IActionResult Create()
         {
@@ -47,35 +41,43 @@ namespace PetCareConnect.App.Controllers
         {
             if (!ModelState.IsValid) return View(prestadorViewModel);
 
+            var imgPrefixo = Guid.NewGuid() + "_";
+
+            if (!await UploadArquivo(prestadorViewModel.ImagemUpload, imgPrefixo))
+            {
+                return View(prestadorViewModel);
+            }
+
+            prestadorViewModel.Imagem = imgPrefixo + prestadorViewModel.ImagemUpload.FileName;
             var prestador = Mapper.Map<Prestador>(prestadorViewModel);
-            await _prestadorService.Adicionar(prestador);
+            await _prestadorRepository.Adicionar(prestador);
             return RedirectToAction(nameof(Index));
         }
-
-        public async Task<IActionResult> Edit(Guid id)
+        private async Task<bool> UploadArquivo(IFormFile arquivo, string imgPrefixo)
         {
-            if (id == Guid.Empty) return NotFound();
+            if (arquivo == null || arquivo.Length <= 0) return false;
 
+            var caminho = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", imgPrefixo + arquivo.FileName);
+
+            if (System.IO.File.Exists(caminho))
+            {
+                ModelState.AddModelError(String.Empty, "Já existe um arquivo com este nome");
+                return false;
+            }
+
+            using (var stream = new FileStream(caminho, FileMode.Create))
+            {
+                await arquivo.CopyToAsync(stream);
+            }
+
+            return true;
+        }
+
+        public async Task<IActionResult> Details(Guid id)
+        {
             var prestadorViewModel = await ObterPrestadorViewModel(id);
-
             return View(prestadorViewModel);
         }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, PrestadorViewModel prestadorViewModel)
-        {
-            if (id != prestadorViewModel.Id) return NotFound();
-
-            if (!ModelState.IsValid) return View(prestadorViewModel);
-
-            var prestador = Mapper.Map<Prestador>(prestadorViewModel);
-            await _prestadorService.Alterar(prestador);
-
-            return RedirectToAction(nameof(Index));
-        }
-
         public async Task<IActionResult> Delete(Guid id)
         {
             if (id == Guid.Empty) return NotFound();
@@ -95,6 +97,7 @@ namespace PetCareConnect.App.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
 
         private async Task<PrestadorViewModel> ObterPrestadorViewModel(Guid id)
         {

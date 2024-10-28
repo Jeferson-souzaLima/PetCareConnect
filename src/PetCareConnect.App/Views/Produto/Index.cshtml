@@ -5,14 +5,14 @@
 <p>
     <a asp-action="Create" class="btn btn-categorias  ms-3">Criar produto</a>
 </p>
+
 <section class="produtos">
     @foreach (var item in Model)
     {
         <div class="produto-card">
-            @* <img src="@item.Imagem" alt="@item.Nome" class="produto-imagem" /> *@
+            <img src="~/img/@item.Imagem" alt="@item.Nome" class="produto-imagem" /> 
             <h2 class="produto-nome">@item.Nome</h2>
-            <p class="produto-preco">@item.Valor.ToString("C")</p> <!-- Formata o preço como moeda -->
+            <p class="produto-preco">@item.Valor.ToString("C")</p> 
         </div>
     }
-</section>
-
+</section> 

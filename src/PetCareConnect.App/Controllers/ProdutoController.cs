@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetCareConnect.App.ViewModels;
 using PetCareConnect.Business.Interfaces;
 using PetCareConnect.Business.Models;
+using PetCareConnect.Data.Repositories;
 
 
 namespace PetCareConnect.App.Controllers
@@ -48,38 +49,37 @@ namespace PetCareConnect.App.Controllers
         {
             if (!ModelState.IsValid) return View(produtoViewModel);
 
-            if (produtoViewModel.ImagemUpload != null && produtoViewModel.ImagemUpload.Length > 0)
+            var imgPrefixo = Guid.NewGuid() + "_";
+
+            if (!await UploadArquivo(produtoViewModel.ImagemUpload, imgPrefixo))
             {
-                // Caminho onde a imagem será salva
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens");
-                var uniqueFileName = Guid.NewGuid().ToString() + "_" + produtoViewModel.ImagemUpload.FileName;
-                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                // Salvar a imagem
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await produtoViewModel.ImagemUpload.CopyToAsync(fileStream);
-                }
-
-                produtoViewModel.Imagem = "/imagens/" + uniqueFileName; // Atualiza o caminho da imagem
+                return View(produtoViewModel);
             }
 
+            produtoViewModel.Imagem = imgPrefixo + produtoViewModel.ImagemUpload.FileName;
             var produto = Mapper.Map<Produto>(produtoViewModel);
-            await _produtoService.Adicionar(produto);
+            await _produtoRepository.Adicionar(produto);
             return RedirectToAction(nameof(Index));
         }
+        private async Task<bool> UploadArquivo(IFormFile arquivo, string imgPrefixo)
+        {
+            if (arquivo == null || arquivo.Length <= 0) return false;
 
+            var caminho = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", imgPrefixo + arquivo.FileName);
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
-        //{
-        //    if (!ModelState.IsValid) return View(produtoViewModel);
+            if (System.IO.File.Exists(caminho))
+            {
+                ModelState.AddModelError(String.Empty, "Já existe um arquivo com este nome");
+                return false;
+            }
 
-        //    var produto = Mapper.Map<Produto>(produtoViewModel);
-        //    await _produtoService.Adicionar(produto);
-        //    return RedirectToAction(nameof(Index));
-        //}
+            using (var stream = new FileStream(caminho, FileMode.Create))
+            {
+                await arquivo.CopyToAsync(stream);
+            }
+
+            return true;
+        }
 
         public async Task<IActionResult> Edit(Guid id)
         {
