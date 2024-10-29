@@ -15,8 +15,9 @@
     {
         <div class="loja-card">
             <div class="loja-info">
-                <h2>@item.Nome</h2>
+                <div class="loja-nome">@item.Nome</div>
                 @* <div class="loja-horario">@item.HorarioFuncionamento</div> *@
+                <div class="loja-tipo">@item.TipoPrestador</div>
                 <div class="loja-endereco">@item.Endereco</div>
             </div>
             <img src="~/img/@item.Imagem" alt="@item.Nome" class="loja-foto" />

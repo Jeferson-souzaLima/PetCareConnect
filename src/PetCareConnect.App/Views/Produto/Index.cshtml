@@ -6,7 +6,7 @@
     <a asp-action="Create" class="btn btn-categorias  ms-3">Criar produto</a>
 </p>
 
-<section class="produtos">
+@* <section class="produtos">
     @foreach (var item in Model)
     {
         <div class="produto-card">
@@ -15,4 +15,93 @@
             <p class="produto-preco">@item.Valor.ToString("C")</p> 
         </div>
     }
-</section> 
+</section>  *@
+
+<section class="produtos">
+    <div class="produtos-container">
+        @foreach (var item in Model)
+        {
+            <div class="produto-card" onclick="openDetails('@item.Id', '@item.Nome', '@item.Descricao', '@item.Valor')">
+                <img src="~/img/@item.Imagem" alt="@item.Nome" class="produto-imagem" />
+                <h5 class="produto-nome">@item.Nome</h5>
+                <p class="produto-preco">@item.Valor.ToString("C")</p>
+            </div>
+        }
+    </div>
+</section>
+
+@*Carrossel*@
+<div class="justify-content-center">
+<div id="carouselExampleFade" class="carousel slide carousel-fade">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+                <img src="~/img/1Banner Pet.png" class="d-block w-75" alt="...">
+        </div>  
+        <div class="carousel-item">
+                <img src="~/img/2Banner Pet.png" class="d-block w-75" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/img/3Banner Pet.png" class="d-block w-75" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+</div>
+
+<div id="detailsModal" class="details-modal-produto">
+    <div class="modal-content-servico">
+        <span class="close-produto" onclick="closeDetails()">&times;</span>
+        <h2 id="produto-nome">Detalhes do Produto</h2>
+        <p id="detalhes-produto"></p>
+        <div class="modal-buttons">
+            <a id="details-button" class="btn btn-info" href="">Detalhes</a>
+            <a id="edit-button" class="btn btn-warning" href="">Editar</a>
+            <form id="delete-form" method="post" style="display: inline;">
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Deletar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*Javascript*@
+@section Scripts {
+    <script>
+        function openDetails(id, nome, descricao, valor) {
+            document.getElementById('produto-nome').innerText = nome;
+            const detalhes = `Descrição: ${descricao} \nPreço: R$ ${valor}`;
+            document.getElementById('detalhes-produto').innerText = detalhes;
+
+            const detailsButton = document.getElementById('details-button');
+            detailsButton.href = '/Produto/Details/' + id;
+
+            const editButton = document.getElementById('edit-button');
+            editButton.href = '/Produto/Edit/' + id;
+
+            const deleteForm = document.getElementById('delete-form');
+            deleteForm.action = '/Produto/Delete/' + id;
+
+            const modal = document.getElementById('details-modal-servico');
+            modal.style.display = 'block';
+        }
+
+        function closeDetails() {
+            const modal = document.getElementById('details-modal-servico');
+            modal.style.display = 'none';
+        }
+
+        function confirmDelete() {
+            if (confirm('Você realmente deseja deletar este Produto?')) {
+                const deleteForm = document.getElementById('delete-form');
+                deleteForm.submit();
+            }
+        }
+    </script>
+}
+

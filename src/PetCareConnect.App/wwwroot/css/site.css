@@ -83,7 +83,7 @@ body {
     margin: 20px 0; 
     display: flex;
     justify-content: space-between;
-    align-items: center; 
+    /*align-items: center;*/ 
     padding: 20px; 
 }
 
@@ -92,14 +92,27 @@ body {
     margin-right: 15px; 
 }
 
-.loja-horario, .loja-endereco {
-    font-size: 16px; 
-    color: #666; 
+.loja-nome {
+    font-size: 30px;
+    font-family: 'Josefin Sans';
+    font-weight: bold;
+    color: #0E5617;
+}
+
+.loja-tipo {
+    font-size: 16px;
+    color: #666;
+}
+
+.loja-endereco {
+    font-size: 16px;
+    color: #666;
 }
 
 .loja-foto {
-    max-width: 150px; 
-    border-radius: 8px; 
+    max-height: 160px;
+    width: 300px;
+    border-radius: 20px;
 }
 
 /*-Botão Opções-*/
@@ -143,20 +156,33 @@ body {
 }
 
 /*------------Produtos---------------*/
+
 .produtos {
     display: flex;
-    flex-wrap: wrap; 
-    justify-content: center; 
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.produtos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.produto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .produto-card {
     background-color: white;
-    border-radius: 30px; 
+    border-radius: 30px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     height: 250px;
-    width: 180px; 
-    margin: 15px; 
-    text-align: center; 
+    width: 180px;
+    margin: 15px;
+    text-align: center;
+    justify-content: center;
 }
 
 .produto-imagem {
@@ -167,14 +193,41 @@ body {
 }
 
 .produto-nome {
-    color: #589B60; 
-    font-size: 16px; 
-    margin: 8px 0 5px; 
+    color: #0E5617;
+    font-size: 16px;
+    margin: 8px 0 5px;
 }
 
 .produto-preco {
+    font-weight: bold;
     font-size: 14px; 
-    color: #666; 
+    color: black; 
+}
+
+/*Janela detalhes Produtos*/
+.details-modal-produto {
+    margin-top: 100px;
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 600px;
+    height: 80%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 45px;
+    border-bottom-left-radius: 45px;
+    transition: transform 0.3s ease;
+}
+
+.modal-content-produto {
+    padding: 20px;
+}
+
+.close-produto {
+    cursor: pointer;
+    font-size: 24px;
+    float: right;
 }
 
 /*--------------Serviços------------*/
@@ -273,17 +326,18 @@ body {
 /*Janela detalhes Serviço*/
 .details-modal {
     margin-top: 100px;
-    display: none; 
-    position: fixed; 
-    right: 0; 
-    top: 0; 
-    width: 600px; 
-    height: 80%; 
-    background-color: white; 
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); 
-    border-top-left-radius: 45px; 
-    border-bottom-left-radius: 45px; 
-    transition: transform 0.3s ease; 
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 600px;
+    height: 80%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 45px;
+    border-bottom-left-radius: 45px;
+    transition: transform 0.3s ease;
+    font-family: 'Josefin Sans';
 }
 
 .modal-content {
