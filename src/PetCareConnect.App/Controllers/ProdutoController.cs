@@ -49,14 +49,7 @@ namespace PetCareConnect.App.Controllers
         {
             if (!ModelState.IsValid) return View(produtoViewModel);
 
-            var imgPrefixo = Guid.NewGuid() + "_";
-
-            if (!await UploadArquivo(produtoViewModel.ImagemUpload, imgPrefixo))
-            {
-                return View(produtoViewModel);
-            }
-
-            produtoViewModel.Imagem = imgPrefixo + produtoViewModel.ImagemUpload.FileName;
+            produtoViewModel = await PreencherImagem(produtoViewModel);
             var produto = Mapper.Map<Produto>(produtoViewModel);
             await _produtoRepository.Adicionar(produto);
             return RedirectToAction(nameof(Index));
@@ -98,8 +91,9 @@ namespace PetCareConnect.App.Controllers
             if (id != produtoViewModel.Id) return NotFound();
 
             if (!ModelState.IsValid) return View(produtoViewModel);
-                
-                var produto = Mapper.Map<Produto>(produtoViewModel);
+            produtoViewModel = await PreencherImagem(produtoViewModel);
+            var produto = Mapper.Map<Produto>(produtoViewModel);
+
                 await _produtoService.Alterar(produto);
                 
                 return RedirectToAction(nameof(Index));
@@ -129,6 +123,17 @@ namespace PetCareConnect.App.Controllers
         {
             var produtoViewModel = Mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterPorId(id));
             return produtoViewModel;
+        }
+
+        private async Task<ProdutoViewModel> PreencherImagem(ProdutoViewModel produto)
+        {
+            var imgPrefixo = Guid.NewGuid() + "_";
+
+            if (await UploadArquivo(produto.ImagemUpload, imgPrefixo))
+            {
+                produto.Imagem = imgPrefixo + produto.ImagemUpload.FileName;
+            }
+            return produto;
         }
     }
 }
