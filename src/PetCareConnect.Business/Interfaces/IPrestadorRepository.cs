@@ -9,6 +9,8 @@ namespace PetCareConnect.Business.Interfaces
 {
     public interface IPrestadorRepository : IBaseRepository<Prestador>
     {
-        Task Adicionar(Servico prestador);
+        Task<Prestador> ObterPorIdComEndereco(Guid id);
+
+
     }
 }

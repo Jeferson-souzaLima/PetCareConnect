@@ -40,15 +40,8 @@ namespace PetCareConnect.App.Controllers
         public async Task<IActionResult> Create(PrestadorViewModel prestadorViewModel)
         {
             if (!ModelState.IsValid) return View(prestadorViewModel);
+            prestadorViewModel = await PreencherImagem(prestadorViewModel);
 
-            var imgPrefixo = Guid.NewGuid() + "_";
-
-            if (!await UploadArquivo(prestadorViewModel.ImagemUpload, imgPrefixo))
-            {
-                return View(prestadorViewModel);
-            }
-
-            prestadorViewModel.Imagem = imgPrefixo + prestadorViewModel.ImagemUpload.FileName;
             var prestador = Mapper.Map<Prestador>(prestadorViewModel);
             await _prestadorRepository.Adicionar(prestador);
             return RedirectToAction(nameof(Index));
@@ -72,7 +65,34 @@ namespace PetCareConnect.App.Controllers
 
             return true;
         }
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            if (id == Guid.Empty) return NotFound();
 
+            var prestadorViewModel = await ObterPorIdComEndereco(id);
+
+            return View(prestadorViewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, PrestadorViewModel prestadorViewModel)
+        {
+            if (id != prestadorViewModel.Id) return NotFound(); 
+            ModelState.Remove("Endereco.Id");
+
+            if (!ModelState.IsValid) return View(prestadorViewModel);
+            prestadorViewModel = await PreencherImagem(prestadorViewModel);
+
+            var prestadorOriginal = await _prestadorRepository.ObterPorIdComEndereco(id);
+
+            var prestador = Mapper.Map(prestadorViewModel, prestadorOriginal);
+            prestador.Endereco.Prestador = prestador;
+            await _prestadorService.Alterar(prestador);
+
+            return RedirectToAction(nameof(Index));
+        }
         public async Task<IActionResult> Details(Guid id)
         {
             var prestadorViewModel = await ObterPrestadorViewModel(id);
@@ -126,5 +146,20 @@ namespace PetCareConnect.App.Controllers
             var prestadorViewModel = Mapper.Map<PrestadorViewModel>(await _prestadorRepository.ObterPorId(id));
             return prestadorViewModel;
         }
+        private async Task<PrestadorViewModel> ObterPorIdComEndereco(Guid id)
+        {
+            var prestadorViewModel = Mapper.Map<PrestadorViewModel>(await _prestadorRepository.ObterPorIdComEndereco(id));
+            return prestadorViewModel;
+        }
+        private async Task<PrestadorViewModel> PreencherImagem(PrestadorViewModel prestador)
+        {
+            var imgPrefixo = Guid.NewGuid() + "_";
+
+            if (await UploadArquivo(prestador.ImagemUpload, imgPrefixo))
+            {
+                prestador.Imagem = imgPrefixo + prestador.ImagemUpload.FileName;
+            }
+            return prestador;
+        } 
     }
 }

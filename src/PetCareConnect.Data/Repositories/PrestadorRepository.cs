@@ -1,4 +1,5 @@
-﻿using PetCareConnect.Business.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using PetCareConnect.Business.Interfaces;
 using PetCareConnect.Business.Models;
 using PetCareConnect.Data.Contexts;
 
@@ -11,9 +12,13 @@ namespace PetCareConnect.Data.Repositories
 
         }
 
-        Task IPrestadorRepository.Adicionar(Servico prestador)
+        public async Task<Prestador> ObterPorIdComEndereco(Guid id)
         {
-            throw new NotImplementedException();
+            var prestador = await Db.Prestadores
+                .Include(t => t.Endereco)
+                  .SingleOrDefaultAsync(m => m.Id == id);
+
+            return prestador;
         }
     }
 }
