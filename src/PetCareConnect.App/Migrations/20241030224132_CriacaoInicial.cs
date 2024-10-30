@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PetCareConnect.App.Migrations
 {
     /// <inheritdoc />
-    public partial class IdentityNew : Migration
+    public partial class CriacaoInicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,35 +48,6 @@ namespace PetCareConnect.App.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProdutoViewModel",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Imagem = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProdutoViewModel", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServicoViewModel",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServicoViewModel", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -242,12 +213,6 @@ namespace PetCareConnect.App.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "ProdutoViewModel");
-
-            migrationBuilder.DropTable(
-                name: "ServicoViewModel");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
