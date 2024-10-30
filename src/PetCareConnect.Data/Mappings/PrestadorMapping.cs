@@ -32,7 +32,9 @@ namespace PetCareConnect.Data.Mappings
             //Relacionamento 1 p/ 1 
             builder.HasOne(c => c.Endereco)
                 .WithOne(c => c.Prestador)
-                .HasForeignKey("EnderecoPrestador", "PrestadorId");
+                .HasForeignKey("EnderecoPrestador", "PrestadorId")
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             //builder.HasDiscriminator<TipoPrestador>("TipoPrestador")
 
