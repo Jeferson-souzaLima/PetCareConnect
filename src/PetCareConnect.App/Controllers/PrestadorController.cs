@@ -95,7 +95,7 @@ namespace PetCareConnect.App.Controllers
         }
         public async Task<IActionResult> Details(Guid id)
         {
-            var prestadorViewModel = await ObterPrestadorViewModel(id);
+            var prestadorViewModel = await ObterPorIdComEndereco(id);
             return View(prestadorViewModel);
         }
         public async Task<IActionResult> Delete(Guid id)

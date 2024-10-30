@@ -11,6 +11,7 @@
     <div class="col-md-6">
         <div class="card p-4" style="background-color: white; border-radius: 10px;">
             
+            
             <div class="form-group">
                 <label class="control-label">Nome</label>
                 <p>@Model.Nome</p>
@@ -25,7 +26,8 @@
                 <label class="control-label">Tipo de Prestador</label>
                 <p>@Model.TipoPrestador</p>
             </div>
-
+            
+            @if( Model.Endereco != null){
             <div class="form-group">
                 <label class="control-label">Cep</label>
                 <p>@Model.Endereco.Cep</p>
@@ -50,7 +52,7 @@
                 <label class="control-label">Logradouro</label>
                 <p>@Model.Endereco.Logradouro</p>
             </div>
-
+            }
             <div class="text-center">
                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
                 <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Deletar</a>

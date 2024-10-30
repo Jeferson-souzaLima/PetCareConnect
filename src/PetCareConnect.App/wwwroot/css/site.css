@@ -65,21 +65,26 @@ body {
     color: #589B60;
     font-size: 30px;
 }
-.footer {
-    background-color: #2c3e50; /* Verde escuro */
-    color: white;
-    padding: 5px 0; /* Reduzir ainda mais o padding */
-    position: relative; /* Mantém a posição em relação ao conteúdo */
-    bottom: 0; /* Posiciona o rodapé no fundo da página */
-    width: 100%; /* Ocupa a largura total */
+.conteudo{
+    flex: 1 0 auto;
 }
+
+.footer {
+    background-color: #2c3e50; 
+    color: white;
+    padding: 5px 0; 
+    position: relative; 
+    bottom: 0; 
+    width: 100%; 
+}
+
 .footer .container {
-    max-width: 100%; /* Permite que o rodapé se expanda completamente */
+    max-width: 100%; 
 }
 .footer a {
     color: white;
     text-decoration: none;
-    font-size: 0.9em; /* Fonte menor */
+    font-size: 0.9em; 
 }
 .footer a:hover {
     text-decoration: underline;
@@ -236,13 +241,13 @@ body {
     top: 0;
     width: 600px;
     height: 80%;
-    background-color: white;
+    background-color: #0E5617;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     border-top-left-radius: 45px;
     border-bottom-left-radius: 45px;
     transition: transform 0.3s ease;
     font-family: 'Josefin Sans';
-    z-index: 1000; 
+    z-index: 1000;
 }
 
 .modal-content-produto {
