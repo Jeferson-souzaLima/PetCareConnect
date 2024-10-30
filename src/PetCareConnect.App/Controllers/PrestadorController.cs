@@ -106,28 +106,7 @@ namespace PetCareConnect.App.Controllers
 
             return View(prestadorViewModel);
         }
-        public async Task<IActionResult> Edit(Guid id)
-        {
-            if (id == Guid.Empty) return NotFound();
-
-            var prestadorViewModel = await ObterPrestadorViewModel(id);
-
-            return View(prestadorViewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, PrestadorViewModel prestadorViewModel)
-        {
-            if (id != prestadorViewModel.Id) return NotFound();
-
-            if (!ModelState.IsValid) return View(prestadorViewModel);
-
-            var prestador = Mapper.Map<Prestador>(prestadorViewModel);
-            await _prestadorService.Alterar(prestador);
-
-            return RedirectToAction(nameof(Index));
-        }
+        
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
